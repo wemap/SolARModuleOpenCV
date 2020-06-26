@@ -76,8 +76,8 @@ FrameworkReturnCode SolARPoseEstimationSACPnpOpencv::estimate(const std::vector<
 
     Transform3Df initialPoseInverse = initialPose.inverse();
 
-    if (worldPoints.size()!=imagePoints.size() || worldPoints.size()< 4 ){
-        LOG_WARNING("world/image points must be valid ( equal and > to 4)");
+    if (worldPoints.size()!=imagePoints.size() || worldPoints.size()< 6 ){
+        LOG_WARNING("world/image points must be valid ( equal and > to 6)");
         return FrameworkReturnCode::_ERROR_  ; // vector of 2D and 3D points must have same size
     }
 
