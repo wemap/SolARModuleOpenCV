@@ -4,7 +4,7 @@ CONFIG -= qt
 
 ## global defintions : target lib name, version
 TARGET = SolAROpenCVCameraCalibration
-VERSION=0.8.0
+VERSION=0.8.1
 
 DEFINES += MYVERSION=$${VERSION}
 CONFIG += c++1z
@@ -24,7 +24,7 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = sharedlib recursive install_recurse
+DEPENDENCIESCONFIG = sharedlib install_recurse
 
 win32:CONFIG -= static
 win32:CONFIG += shared

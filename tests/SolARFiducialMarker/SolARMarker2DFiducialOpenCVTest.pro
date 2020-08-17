@@ -4,7 +4,7 @@ CONFIG -= qt
 
 ## global defintions : target lib name, version
 TARGET = SolAROpenCVFiducialMarker
-VERSION=0.8.0
+VERSION=0.8.1
 
 DEFINES += MYVERSION=$${VERSION}
 CONFIG += c++1z
@@ -24,7 +24,7 @@ CONFIG(release,debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DEPENDENCIESCONFIG = sharedlib recursive install_recurse
+DEPENDENCIESCONFIG = sharedlib install_recurse
 
 win32:CONFIG -= static
 win32:CONFIG += shared
@@ -69,6 +69,9 @@ win32 {
 configfile.path = $${TARGETDEPLOYDIR}/
 configfile.files = $${PWD}/SolAROpenCVFiducialMarker_conf.xml
 INSTALLS += configfile
+
+DISTFILES += \
+    packagedependencies.txt
 
 #NOTE : Must be placed at the end of the .pro
 include ($$shell_quote($$shell_path($${QMAKE_REMAKEN_RULES_ROOT}/remaken_install_target.pri)))) # Shell_quote & shell_path required for visual on windows
