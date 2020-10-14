@@ -72,27 +72,49 @@ int main(int argc, char *argv[])
         // declare and create components
         LOG_INFO("Start creating components");
 		auto arDevice = xpcfComponentManager->resolve<input::devices::IARDevice>();
+        LOG_INFO("1");
 		auto imageViewer = xpcfComponentManager->resolve<display::IImageViewer>();
+        LOG_INFO("2");
 		auto overlay3D = xpcfComponentManager->resolve<display::I3DOverlay>();
+        LOG_INFO("3");
 		auto overlay2D = xpcfComponentManager->resolve<display::I2DOverlay>();
+        LOG_INFO("4");
 		auto viewer3D = xpcfComponentManager->resolve<display::I3DPointsViewer>();
+        LOG_INFO("5");
 		auto matchesOverlay = xpcfComponentManager->resolve<api::display::IMatchesOverlay>();
+        LOG_INFO("6");
 		auto pointCloudManager = xpcfComponentManager->resolve<IPointCloudManager>();
+        LOG_INFO("7");
 		auto keyframesManager = xpcfComponentManager->resolve<IKeyframesManager>();
+        LOG_INFO("8");
 		auto covisibilityGraph = xpcfComponentManager->resolve<ICovisibilityGraph>();
-		auto keyframeRetriever = xpcfComponentManager->resolve<IKeyframeRetriever>();
+        LOG_INFO("9");
+        auto keyframeRetriever = xpcfComponentManager->resolve<IKeyframeRetriever>();
+        LOG_INFO("10");
 		auto mapper = xpcfComponentManager->resolve<solver::map::IMapper>();
+        LOG_INFO("11");
 		auto keypointsDetector = xpcfComponentManager->resolve<features::IKeypointDetector>();
+        LOG_INFO("12");
 		auto descriptorExtractor = xpcfComponentManager->resolve<features::IDescriptorsExtractor>();
+        LOG_INFO("13");
 		auto matcher = xpcfComponentManager->resolve<features::IDescriptorMatcher>();
+        LOG_INFO("14");
 		auto keyframeSelector = xpcfComponentManager->resolve<solver::map::IKeyframeSelector>();
+        LOG_INFO("15");
 		auto triangulator = xpcfComponentManager->resolve<api::solver::map::ITriangulator>();
+        LOG_INFO("16");
 		auto mapFilter = xpcfComponentManager->resolve<api::solver::map::IMapFilter>();
+        LOG_INFO("17");
 		auto bundler = xpcfComponentManager->resolve<api::solver::map::IBundler>();
+        LOG_INFO("18");
 		auto matchesFilter = xpcfComponentManager->resolve<features::IMatchesFilter>(); ;
+        LOG_INFO("19");
 		auto loopDetector = xpcfComponentManager->resolve<loop::ILoopClosureDetector>();
+        LOG_INFO("20");
 		auto loopCorrector = xpcfComponentManager->resolve<loop::ILoopCorrector>();
+        LOG_INFO("21");
 		auto mapping = xpcfComponentManager->resolve<slam::IMapping>();
+        LOG_INFO("22");
 		auto fiducialMarkerPoseEstimator = xpcfComponentManager->resolve<solver::pose::IFiducialMarkerPose>();
 		LOG_INFO("Components created!");
 
@@ -100,21 +122,26 @@ int main(int argc, char *argv[])
 		// Connect remotely to the HoloLens streaming app
 		if (arDevice->start() == FrameworkReturnCode::_ERROR_)
 		{
-			LOG_ERROR("Cannot start loader");
+            LOG_INFO("Cannot start loader");
 			return -1;
 		}
 		LOG_INFO("Started!");
 
 		// Load camera intrinsics parameters
 		CameraParameters camParams;
+        LOG_INFO("0");
 		camParams = arDevice->getParameters(0);
-		overlay3D->setCameraParameters(camParams.intrinsic, camParams.distortion);
+        LOG_INFO("1");
+        overlay3D->setCameraParameters(camParams.intrinsic, camParams.distortion);
+        LOG_INFO("2");
 		triangulator->setCameraParameters(camParams.intrinsic, camParams.distortion);
-		loopDetector->setCameraParameters(camParams.intrinsic, camParams.distortion);
+        LOG_INFO("3");
+        // loopDetector->setCameraParameters(camParams.intrinsic, camParams.distortion);
+        LOG_INFO("4");
 		loopCorrector->setCameraParameters(camParams.intrinsic, camParams.distortion);
 		mapping->setCameraParameters(camParams.intrinsic, camParams.distortion);
 		fiducialMarkerPoseEstimator->setCameraParameters(camParams.intrinsic, camParams.distortion);
-		LOG_DEBUG("Loaded intrinsics \n{}\n\n{}", camParams.intrinsic, camParams.distortion);
+        LOG_INFO("Loaded intrinsics \n{}\n\n{}", camParams.intrinsic, camParams.distortion);
 
 		// Correct pose and Bootstrap
 		Transform3Df T_M_W = Transform3Df::Identity();

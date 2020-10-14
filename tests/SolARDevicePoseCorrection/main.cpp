@@ -89,6 +89,7 @@ int main(int argc, char *argv[])
 		Transform3Df T_M_W = Transform3Df::Identity();
 		bool isStop = false;
 		bool isFoundTransform = false;
+        int nb_found = 0;
 		while (!isStop)
 		{
 			// get data
@@ -104,11 +105,14 @@ int main(int argc, char *argv[])
 			Transform3Df pose = poses[INDEX_USE_CAMERA];
 
 			// find T_W_M
-			if (!isFoundTransform) {
+            if (!isFoundTransform) {
 				Transform3Df T_M_C;
 				if (fiducialMarkerPoseEstimator->estimate(image, T_M_C) == FrameworkReturnCode::_SUCCESS) {
 					T_M_W = T_M_C * pose.inverse();
-					isFoundTransform = true;
+                    nb_found++;
+                    if (nb_found>3)
+                        isFoundTransform = true;
+                    LOG_INFO("Found transform ! ");
 				}
 			}
 

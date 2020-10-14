@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
 		// set calibration matrix for components
 		CameraParameters camParams;
-		camParams = arDevice->getParameters(INDEX_USE_CAMERA);
+        camParams = arDevice->getParameters(INDEX_USE_CAMERA);
 		overlay3D->setCameraParameters(camParams.intrinsic, camParams.distortion);
 
         // Display images and poses
