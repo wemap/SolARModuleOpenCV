@@ -180,7 +180,7 @@ void SolARKeypointDetectorOpencv::detect(const SRef<Image> image, std::vector<Ke
                 setType(stringToType.at(this->m_type));
             }
             m_detector->detect(img_1, kpts, Mat());
-			// fix scale
+			// fix scale due to downscaling
 			for (auto& keypoint : kpts) {
 				keypoint.pt.x = keypoint.pt.x * ratioInv;
 				keypoint.pt.y = keypoint.pt.y * ratioInv;
@@ -191,6 +191,7 @@ void SolARKeypointDetectorOpencv::detect(const SRef<Image> image, std::vector<Ke
 			int borderHeight = static_cast<int>(m_borderRatio * image->getHeight());
 			int widthToExtract = image->getWidth() - 2 * borderWidth;
 			int heightToExtract = image->getHeight() - 2 * borderHeight;
+            // TODO: performance?????
 			for (const auto &it : kpts) {
 				int id_width = static_cast<int>(std::floor((it.pt.x - borderWidth) * m_nbGridWidth / widthToExtract));
 				int id_height = static_cast<int>(std::floor((it.pt.y - borderHeight) * m_nbGridHeight / heightToExtract));
@@ -205,7 +206,7 @@ void SolARKeypointDetectorOpencv::detect(const SRef<Image> image, std::vector<Ke
 				int countCell(0);				
 				for (auto& it: gridKps) {
 					int nbKpPerCell = static_cast<int>((m_nbDescriptors - kpts.size()) / (nbCells - countCell));
-					kptsFilter.retainBest(it.second, nbKpPerCell);
+					m_kptsFilter.retainBest(it.second, nbKpPerCell);
 					kpts.insert(kpts.end(), it.second.begin(), it.second.end());
 					countCell++;
 				}
