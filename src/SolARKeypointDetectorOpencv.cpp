@@ -122,7 +122,7 @@ void SolARKeypointDetectorOpencv::setType(KeypointDetectorType type)
 	case (KeypointDetectorType::ORB):
         LOG_DEBUG("KeypointDetectorImp::setType(ORB)");
 		if (m_nbDescriptors > 0)
-            m_detector=ORB::create(100* m_nbDescriptors, 1.2f);
+            m_detector = ORB::create(m_nbDescriptors, 1.2f);
 		else
 			m_detector = ORB::create();
         break;
