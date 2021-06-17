@@ -180,6 +180,9 @@ void SolARKeypointDetectorOpencv::detect(const SRef<Image> image, std::vector<Ke
                 setType(stringToType.at(this->m_type));
             }
             m_detector->detect(img_1, kpts, Mat());
+
+            // TODO: Add a parameter to use (or not) the grid computation.
+
 			// fix scale due to downscaling
 			for (auto& keypoint : kpts) {
 				keypoint.pt.x = keypoint.pt.x * ratioInv;
@@ -218,6 +221,8 @@ void SolARKeypointDetectorOpencv::detect(const SRef<Image> image, std::vector<Ke
         LOG_ERROR("{}",e.msg)
         return;
     }
+
+    // TODO: Check the copy
 
     int kpID=0;
     for(const auto& keypoint : kpts){

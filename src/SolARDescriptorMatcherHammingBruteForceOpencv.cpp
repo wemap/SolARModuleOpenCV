@@ -65,6 +65,8 @@ IDescriptorMatcher::RetCode SolARDescriptorMatcherHammingBruteForceOpencv::match
      cv::Mat cvDescriptor2(desc2->getNbDescriptors(), desc1->getNbElements(), type_conversion);
      cvDescriptor2.data=(uchar*)desc2->data();
 
+    // TODO: Put the matcher outside the match method
+
     cv::BFMatcher matcher(cv::NormTypes::NORM_HAMMING);
     std::vector< std::vector<cv::DMatch> > nn_matches;
     
